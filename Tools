@@ -1,0 +1,5 @@
+Valgrind For checking memory Leakage:
+  valgrind --leak-check=full -v ./your_program
+
+Increase Memory for a program/shell (Increase Stack Size):
+  ulimit -s unlimited
