@@ -1,0 +1,15 @@
+Ideas and Complexities:
+
+Dinic:
+  Use level graph and blocking path augmentation on each step to find maximum flow.
+  
+  General graph:
+    O(E*V^2) 
+    can be improved using link cut trees to O(V*E*log V)
+  
+  Unit capacity graph:
+    O(E*min(V^2/3,E^1/2))
+  
+  Unit capacity with each vertex having either Indeg <= 1 or Outdeg <= 1:
+    Example Bipartitie graphs
+    O(E*root(V)) 
