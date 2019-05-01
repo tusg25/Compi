@@ -1,5 +1,5 @@
 struct dsu{
-    v32 par,rk;
+    vector<int> par,rk;
     void reset(int n){
         rk.assign(n,0);
         par.resize(n);
