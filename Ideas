@@ -1,0 +1,3 @@
+Adhoc:
+  Write a brute force to find if some range limits n^2 to n*range
+  E.g. https://codeforces.com/contest/1168/standings/friends/true (Van der Waerden number)
