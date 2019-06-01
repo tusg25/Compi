@@ -11,5 +11,10 @@ Graphs:
 Queries:
 	Range query involving |a-b|<=something
 		Divide it in two half query till something+b and subtract till something-b
-		E.g.	https://codeforces.com/contest/1139/problem/F,
-				https://codeforces.com/contest/762/problem/E.
+		E.g.  https://codeforces.com/contest/1139/problem/F,
+			  https://codeforces.com/contest/762/problem/E.
+
+Exponential:
+	Try meet in the middle
+		E.g. https://codeforces.com/contest/585/problem/D
+	Submask dp
