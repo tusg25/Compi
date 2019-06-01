@@ -1,3 +1,9 @@
 Adhoc:
-  Write a brute force to find if some range limits n^2 to n*range
-  E.g. https://codeforces.com/contest/1168/standings/friends/true (Van der Waerden number)
+	Shitty Stuff some random query looks n^2
+		Write a brute force to find if some range limits n^2 to n*range
+		E.g. https://codeforces.com/contest/1168/standings/friends/true (Van der Waerden number)
+
+Graphs:
+	General undirected graph ask you to do stuff only once on edges
+		Try bi-connected components decompositions
+		E.g. https://codeforces.com/contest/652/problem/E
