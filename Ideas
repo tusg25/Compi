@@ -7,3 +7,9 @@ Graphs:
 	General undirected graph ask you to do stuff only once on edges
 		Try bi-connected components decompositions
 		E.g. https://codeforces.com/contest/652/problem/E
+
+Queries:
+	Range query involving |a-b|<=something
+		Divide it in two half query till something+b and subtract till something-b
+		E.g.	https://codeforces.com/contest/1139/problem/F,
+				https://codeforces.com/contest/762/problem/E.
