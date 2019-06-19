@@ -1,30 +1,29 @@
 Adhoc:
 	Shitty Stuff some random query looks n^2
 		Write a brute force to find if some range limits n^2 to n*range
-		E.g. https://codeforces.com/contest/1168/standings/friends/true (Van der Waerden number)
+			E.g. https://codeforces.com/contest/1168/standings/friends/true (Van der Waerden number)
+	
+	Some values till 60:
+		Try bitmask considering 60 bit numbers
+			E.g. https://codeforces.com/contest/620/problem/E
+			     https://codeforces.com/problemset/problem/1114/F (~ 60 primes)
 
+	Some values till 100:
+		Try iterating for each query for 100 values
+			E.g. https://codeforces.com/contest/1185/problem/C2
 Graphs:
 	General undirected graph ask you to do stuff only once on edges
 		Try bi-connected components decompositions
-		E.g. https://codeforces.com/contest/652/problem/E
+			E.g. https://codeforces.com/contest/652/problem/E
 
 Queries:
 	Range query involving |a-b|<=something
 		Divide it in two half query till something+b and subtract till something-b
-		E.g.  https://codeforces.com/contest/1139/problem/F,
-			  https://codeforces.com/contest/762/problem/E.
+			E.g.  https://codeforces.com/contest/1139/problem/F,
+				  https://codeforces.com/contest/762/problem/E.
 
 Exponential:
 	Try meet in the middle
 		E.g. https://codeforces.com/contest/585/problem/D
 	Submask dp
-
-Some values till 60:
-	Try bitmask considering 60 bit numbers
-		E.g. https://codeforces.com/contest/620/problem/E
-		     https://codeforces.com/problemset/problem/1114/F (~ 60 primes)
-
-Some values till 100:
-	Try iterating for each query for 100 values
-		E.g. https://codeforces.com/contest/1185/problem/C2
 		
