@@ -18,3 +18,13 @@ Exponential:
 	Try meet in the middle
 		E.g. https://codeforces.com/contest/585/problem/D
 	Submask dp
+
+Some values till 60:
+	Try bitmask considering 60 bit numbers
+		E.g. https://codeforces.com/contest/620/problem/E
+		     https://codeforces.com/problemset/problem/1114/F (~ 60 primes)
+
+Some values till 100:
+	Try iterating for each query for 100 values
+		E.g. https://codeforces.com/contest/1185/problem/C2
+		
