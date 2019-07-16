@@ -11,6 +11,12 @@ Adhoc:
 	Some values till 100:
 		Try iterating for each query for 100 values
 			E.g. https://codeforces.com/contest/1185/problem/C2
+			
+	Values till 1e9 / around 500 different items:
+		Try n root max ai
+		Divide in sqrt chunks to see if some items less than root ai what happens
+			E.g. https://codeforces.com/contest/792/problem/E
+		
 Graphs:
 	General undirected graph ask you to do stuff only once on edges
 		Try bi-connected components decompositions
