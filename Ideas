@@ -2,6 +2,7 @@ Adhoc:
 	Shitty Stuff some random query looks n^2
 		Write a brute force to find if some range limits n^2 to n*range
 			E.g. https://codeforces.com/contest/1168/standings/friends/true (Van der Waerden number)
+			E.g. https://codeforces.com/gym/101630/attachments/download/6401/20172018-acmicpc-northeastern-european-regional-contest-neerc-17-en.pdf B
 	
 	Some values till 60:
 		Try bitmask considering 60 bit numbers
