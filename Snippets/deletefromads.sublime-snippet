@@ -1,0 +1,90 @@
+<snippet>
+    <content><![CDATA[
+struct Line{
+	ll m,c;
+	Line(ll mm=0,ll cc=-3e18): m(mm),c(cc){}
+	inline ll get(const int &x){return m*x+c;}
+	inline ll operator [](const int &x){return m*x+c;} 
+};
+vector<Line> LN;
+struct node{
+	node *lt,*rt;
+	int Ln;
+	node(const int&l): Ln(l),lt(0),rt(0){};
+	inline ll operator[](const int &x){ return LN[Ln].get(x);}
+	inline ll get(const int &x){return LN[Ln].get(x);}
+};
+const static int LX=-(1e9),RX=1e9;
+struct Dynamic_Hull{ /* Max hull */
+	node *root=0;
+	Dynamic_Hull(): root(0){}
+	void add(int l,node* &it,int lx=LX,int rx=RX){
+		if(it==0) it=new node(l);
+		if(it->get(lx)>=LN[l].get(lx) and it->get(rx)>=LN[l].get(rx)) return;
+		if(it->get(lx)<=LN[l].get(lx) and it->get(rx)<=LN[l].get(rx)){
+			it->Ln=l;
+			return;
+		}
+		int mid=(lx+rx)>>1;
+		if(it->get(lx)<LN[l][lx]) swap(it->Ln,l);
+		if(it->get(mid)>=LN[l][mid]){
+			add(l,it->rt,mid+1,rx);
+		}else{
+		 	swap(it->Ln,l); 
+		 	add(l,it->lt,lx,mid); 
+		}
+  	}
+	inline void add(int ind){add(ind,root);}
+	ll get(int &x,node* &it,int lx=LX,int rx=RX){
+		if(it==0) return -3e18; // Max hull
+		ll ret=it->get(x);
+		int mid=(lx+rx)>>1;
+		if(x<=mid) ret=max(ret,get(x,it->lt,lx,mid));
+		else ret=max(ret,get(x,it->rt,mid+1,rx));
+		return ret;
+	}
+	inline ll get(int x){return get(x,root);}
+};
+struct dynamichull{
+	vector<Dynamic_Hull> H;
+	int N;
+	void pre(int n){
+		N=n;
+		H.resize(4*N);
+		LN.clear();
+	}
+	void add(int v,int tl,int tr,int l,int r,const int &q){
+		if(l>r or tl>tr) return;
+		if(l==tl && tr==r){
+	    	H[v].add(q);
+	    }else{
+			int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;;
+			add(lf,tl,tm,l,min(r,tm),q);
+			add(rt,tm+1,tr,max(l,tm+1),r,q);
+	    }
+	}
+	ll query(int v,int tl,int tr,const int &pos,const int &tar){
+		if(tl==tr){
+			return H[v].get(tar);
+		}else{
+			int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;
+			ll ans=H[v].get(tar);
+			if(pos<=tm) return max(ans,query(lf,tl,tm,pos,tar));
+			else return max(ans,query(rt,tm+1,tr,pos,tar));
+		}
+	}
+	ll q(int pos,int tar){
+		return query(1,0,N-1,pos,tar);
+	}
+	void add(int st,int ed,ll m,ll c){
+		int ind=LN.size();
+		LN.pb(Line(m,c));
+		return add(1,0,N-1,st,ed,ind);
+	}
+};
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>deletefromadatastructure</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

@@ -1,0 +1,28 @@
+<snippet>
+    <content><![CDATA[
+const ll INF=1e18;
+ll C(int i,int j){ // cost function
+	return 0;
+}      
+v64 dp_before,dp_cur; // dp(j-1) & dp(j)
+//dp(i,j) = min over k=0..j for dp(i-1,k)+C(k,j)
+//compute dp_cur[l], ... dp_cur[r] (inclusive)
+//call compute(0,imax-1,0,imax-1) to compute dp(j) from dp(j-1)
+void compute(int l,int r,int optl,int optr){
+	if(l>r) return;
+	int mid=(l+r)>>1;
+	pair<ll,int> best={INF,-1};
+	for(int k=optl;k<=min(mid,optr);k++){
+		best=min(best,{dp_before[k]+C(k,mid),k});
+	}
+	dp_cur[mid]=best.first; 
+	int opt=best.second; //dbg(mid,opt);
+	compute(l,mid-1,optl,opt);
+	compute(mid+1,r,opt,optr);
+}
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>dncdp</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

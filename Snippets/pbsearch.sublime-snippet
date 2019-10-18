@@ -1,0 +1,28 @@
+<snippet>
+    <content><![CDATA[
+int sz;  // sz
+v32 lf(sz,mn),rt(sz,mx);
+vv32 check;
+forn(ll,20){
+	// Clear stuff
+	check.assign(n,v32(0));
+	forn(i,sz){
+		if(lf[i]!=rt[i]){
+			int mid= (lf[i]+rt[i])/2;
+			check[mid].pb(i);
+		}
+	}
+	forn(i,n-1){
+		add(i) // add element i
+		forstl(it,check[i]){
+			if(conditions()) rt[it]=i; // check for conditions
+			else lf[it]=i+1;
+		}
+	}
+}
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>pbsearch</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

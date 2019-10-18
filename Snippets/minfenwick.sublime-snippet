@@ -1,0 +1,32 @@
+<snippet>
+    <content><![CDATA[
+struct ftmin{ // change min->max and inf for max
+    v32 s;
+    int n;
+    ftmin(int n): s(2*n+10,MOD),n(n){}
+    // Add zero based
+    void add(int pos,int val){
+        ++pos;
+        for(int i=pos+n;i;i>>=1) s[i]=min(s[i],val);
+    }
+    int get(int l,int r){ // [l,r)
+        ++l,++r;int ans=MOD;
+        for(l+=n,r+=n;l<r;l>>=1,r>>=1){
+            if(l&1){
+                ans=min(ans,s[l]);
+                l++;
+            }
+            if(r&1){
+                r--;
+                ans=min(ans,s[r]);
+            }
+        }
+        return ans;
+    }
+};
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>fenwickminimum</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

@@ -1,0 +1,18 @@
+<snippet>
+    <content><![CDATA[
+v32 values;
+int ind(int x){
+    return lower_bound(all(values),x)-values.begin();
+}
+void compress(v32 &v){
+	values.resize(v.size());
+    copy(all(v),values.begin());
+    sort(all(values));
+    values.erase(unique(all(values)),values.end());
+}
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>compress</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

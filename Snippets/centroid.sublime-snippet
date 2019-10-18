@@ -1,0 +1,35 @@
+<snippet>
+    <content><![CDATA[
+vector<set<int> > v;
+v32 par,sub;
+int dfs(int u,int p) {
+	sub[u]=1;
+	forstl(it,v[u]) if(it!=p) sub[u]+=dfs(it,u);
+	return sub[u];
+}
+int find_centroid(int u,int p,int n){
+	forstl(it,v[u]){
+		if(it!=p && sub[it]>n/2) return find_centroid(it,u,n);
+	}
+	return u;
+}
+void decompose(int u,int p=-1){
+	int n=dfs(u,p);
+	int centroid=find_centroid(u,p,n);
+	if(p==-1){p=centroid;}
+	// Do stuff here for merges
+	
+	// Recurse
+	par[centroid]=p;
+	forstl(it,v[centroid]){
+		v[it].erase(centroid);
+		decompose(it,centroid);
+	}
+	v[centroid].clear();
+}
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>centroiddecomposition</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

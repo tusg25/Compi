@@ -1,0 +1,55 @@
+<snippet>
+    <content><![CDATA[
+// Range Sum query and point update to new value
+struct segtree{
+	int N;
+	vector<int> T;
+	void init(int n){
+		N=n; //T.resize(4*N);
+		T.assign(4*N,0);
+	}
+	void build(int a[],int v,int tl,int tr){
+	    if(tl==tr){
+	        T[v]=a[tl];
+	    }else{
+	        int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;
+	        build(a,lf,tl,tm);
+	        build(a,rt,tm+1,tr);
+	        T[v]=T[lf]+T[rt];
+	    }
+	}
+	int sum(int v,int tl,int tr,int l,int r){
+	    if(l>r) return 0;
+	    if(l==tl && r==tr){
+	        return T[v];
+	    }
+	    int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;
+	    return (sum(lf,tl,tm,l,min(r,tm))
+	           +sum(rt,tm+1,tr,max(l,tm+1),r));
+	}
+	void update(int v,int tl,int tr,int pos,int val){
+	    if(tl==tr){
+	        T[v]=val;
+	    }else{
+	    	int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;
+	        if(pos<=tm){
+	        	update(lf,tl,tm,pos,val);
+	        }else{
+	            update(rt,tm+1,tr,pos,val);
+	        }
+	        T[v]=T[v*2]+T[v*2+1];
+	    }
+	}
+	void u(int pos,int val){
+		update(1,0,N-1,pos,val);
+	}
+	int q(int l,int r){
+		return sum(1,0,N-1,l,r);
+	}
+} st;
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>rangesumpointupdate</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

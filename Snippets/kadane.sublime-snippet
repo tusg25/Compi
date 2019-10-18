@@ -1,0 +1,18 @@
+<snippet>
+    <content><![CDATA[
+ll kadane(v32 &num,int n){
+    ll min_sum=0,max_sum=0;
+    ll sum=0;
+    forn(i,n){
+        sum+=num[i];
+        if(sum-min_sum>max_sum) max_sum=sum-min_sum;
+        if(sum<min_sum) min_sum=sum;
+    }
+    return max_sum;
+}
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>kadanemaximumcontsum</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

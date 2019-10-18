@@ -1,0 +1,37 @@
+<snippet>
+    <content><![CDATA[
+struct MaxMatching{
+  // O(V*E) maximum matching Kuhn's algorithm
+  // For Unweighted Bi-partite with n1 and n2 nodes
+  vv32 g;
+  v32 vis,matching;
+  int n1,n2;
+  int maxMatching(vv32 &graph,int N2){
+    n1=graph.size(),n2=N2;
+    matching.assign(n2,-1);
+    g=graph;
+    int matches=0;
+    for(int u=0;u<n1;++u){
+      vis.assign(n1,0);
+      if(findPath(u)) ++matches;
+    }
+    return matches;
+  }
+  bool findPath(int u1){
+    vis[u1]=1;
+    forstl(v,g[u1]){
+      int u2=matching[v];
+      if(u2==-1 || !vis[u2] && findPath(u2)){
+        matching[v]=u1;
+        return 1;
+      }
+    }
+    return 0;
+  }
+};
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>bipartitematchingkuhnsalgo</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

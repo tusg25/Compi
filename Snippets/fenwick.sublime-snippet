@@ -1,0 +1,56 @@
+<snippet>
+    <content><![CDATA[
+struct ft{
+    vector<ll> s;
+    int n;
+    ft(int n) : s(n+10),n(n){}
+    // Add zero based
+    void add(int pos,ll val){
+        ++pos;
+        while(pos<s.size()){
+            s[pos]+=val;
+            pos+=pos&-pos;
+        }
+    }
+    ll get(int pos){
+        ++pos; ll ans=0;
+        while(pos>0){
+            ans+=s[pos];
+            pos-=pos&-pos;
+        }
+        return ans;
+    }
+    int lower_bound(ll sum){
+        int l=0,r=n-1;
+        while(l<r){
+            int mid=(l+r)/2;
+            if (get(mid)>=sum) r=mid;
+            else l=mid+1;
+        } // after the loop, l = r = x
+        if(get(l)>=sum) return l;
+        else return n;
+    }
+};
+struct FenwickTree2D {
+    vector<vector<int>> bit;
+    int n, m;
+    // init(...) { ... }
+    int sum(int x, int y) {
+        int ret = 0;
+        for (int i = x; i >= 0; i = (i & (i + 1)) - 1)
+            for (int j = y; j >= 0; j = (j & (j + 1)) - 1)
+                ret += bit[i][j];
+        return ret;
+    }
+    void add(int x, int y, int delta) {
+        for (int i = x; i < n; i = i | (i + 1))
+            for (int j = y; j < m; j = j | (j + 1))
+                bit[i][j] += delta;
+    }
+};
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>fenwick</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

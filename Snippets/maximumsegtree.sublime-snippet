@@ -1,0 +1,41 @@
+<snippet>
+    <content><![CDATA[
+// (maximum,index)
+const int MAXN=1e5+5;
+p32 T[4*MAXN];
+inline p32 combine(const p32 &a,const p32 &b){
+    return max(a,b);
+}
+void build(int a[],int v,int tl,int tr) {
+    if(tl==tr) {
+        T[v]=mp(a[tl],tl);
+    }else{
+        int tm=(tl+tr)>>1,lf=v>>1,rt=lf^1;
+        build(a,lf,tl,tm);
+        build(a,rt,tm+1,tr);
+        T[v]=combine(T[lf],T[rt]);
+    }
+}
+p32 get_max(int v,int tl,int tr,int l,int r){
+    if(l>r || tr<l || r<tl) return mp(-MOD,LIM);
+    if(l<=tl && tr<=r) return T[v];
+    int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;
+    return combine(get_max(lf,tl,tm,l,min(r,tm)), 
+                   get_max(rt,tm+1,tr,max(l,tm+1),r));
+}
+void update(int v,int tl,int tr,int pos,p32 new_val) {
+    if(tl==tr){
+        T[v]=new_val;
+    }else{
+        int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;
+        if(pos<=tm) update(lf,tl,tm,pos,new_val);
+        else update(rt,tm+1,tr,pos,new_val);
+        T[v]=combine(T[lf],T[rt]);
+    }
+}
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>maximumsegtree</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

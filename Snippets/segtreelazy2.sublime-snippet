@@ -1,0 +1,71 @@
+<snippet>
+    <content><![CDATA[
+bool a[LIM];
+struct node{
+  int on,off;
+  bool flip;
+};
+struct segtree{
+  vector<node> T;
+  int N;
+  void clear(int n){
+    N=n;
+    T.resize(4*N);
+  }
+  void build(int v,int tl,int tr){
+    if(tl==tr){
+      T[v]={a[tl],!a[tl],0};
+    }else{
+      int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;;
+      build(lf,tl,tm);
+      build(rt,tm+1,tr);
+      T[v].on=T[lf].on+T[rt].on;
+      T[v].off=T[lf].off+T[rt].off;
+      T[v].flip=0;
+    }
+  }
+  void push(int v){
+    if(T[v].flip){
+      int lf=v<<1,rt=lf^1;
+      swap(T[lf].on,T[lf].off);
+      swap(T[rt].on,T[rt].off);
+      T[lf].flip=!T[lf].flip;
+      T[rt].flip=!T[rt].flip;
+      T[v].flip=0;
+    }
+  }
+  void update(int v,int tl,int tr,int l,int r){
+    if(l>r or tl>r or tr<l) return;
+    if(l==tl && tr==r){
+      T[v].flip=!T[v].flip;
+      swap(T[v].on,T[v].off);
+    }else{
+      push(v);
+      int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;;
+      update(lf,tl,tm,l,min(r,tm));
+      update(rt,tm+1,tr,max(l,tm+1),r);
+      T[v].on=T[lf].on+T[rt].on;
+      T[v].off=T[lf].off+T[rt].off;
+    }
+  }
+  int query(int v,int tl,int tr,int l,int r){
+    if(l>r or tl>r or tr<l) return;
+    if(l<=tl && tr<=r) return T[v].on;
+    push(v);
+    int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;
+    return (query(lf,tl,tm,l,min(r,tm))+ 
+      query(rt,tm+1,tr,max(l,tm+1),r));
+  }
+  int q(int l,int r){
+    return query(1,0,N-1,l,r);
+  }
+  void u(int l,int r){
+    update(1,0,N-1,l,r);
+  }
+} st;
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>segtreelazy2</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

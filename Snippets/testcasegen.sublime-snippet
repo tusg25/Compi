@@ -1,0 +1,36 @@
+<snippet>
+    <content><![CDATA[
+//By Tushar Gautam
+#pragma GCC optimize ("-O2")
+#include <bits/stdc++.h>
+using namespace std;
+#define fastio ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0)
+#define ln '\n'
+#define forn(i,n) for(int i=0;i<n;++i)
+typedef long long int ll;
+int rand(int a,int b){
+	return a+rand()%(b-a+1);
+}
+ll bigrand(){ //till 1e15
+	return rand()*1e6+rand();
+}
+int main(int argc,char* argv[]){
+	fastio;
+	srand(atoi(argv[1]));
+	int n=rand(1,3e5),m=rand(1,1e9);
+	return 0;
+}
+// run.sh
+// for((i=0;;++i)); do
+//  echo $i
+//  ./gen $i > inp
+//  ./my < inp > myout
+//  ./his < inp > hisout
+//  diff -w myout hisout || break
+// done
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>testcasegen</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

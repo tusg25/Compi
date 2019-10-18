@@ -1,0 +1,188 @@
+<snippet>
+    <content><![CDATA[
+// Mincost Maxflow : O(E^2) 
+// [ Hell-Johnson MinCostMaxFlow using Dijstra with potential & Fibonnaci Heap]
+// Negative cost cycles are not supported.
+#include <bits/extc++.h>
+typedef int COST;
+typedef int FLOW;
+const COST CINF=100005;
+const FLOW FINF=100005;
+struct MCMF{
+  struct Edge{
+    int u,v,rind;
+    FLOW cap,flow;
+    COST cost;
+  };
+  int N;
+  vector<COST> pot,dist;
+  vector<vector<Edge> > v;
+  vector<pair<int,int> > par;
+  MCMF(int n): N(n),dist(n),v(n),par(n){}
+  void AddEdge(int to,int from,int cap,int cost){
+    if(to==from){
+      assert(cost>=0);
+      return;
+    }
+    int i1=v[to].size(),i2=v[from].size();
+    v[to].push_back({to,from,i2,cap,0,cost});
+    v[from].push_back({from,to,i1,0,0,-cost});
+  }
+  void setpi(int s){
+    pot.assign(N,CINF);
+    pot[s]=0;
+    int ch=1,ite=N;
+    COST cur,nw;
+    while(ch-- && ite--){
+      for(int i=0;i<N;++i){
+        if(pot[i]!=CINF){
+          cur=pot[i];
+          for(auto &e: v[i]){
+            if(e.cap>0 && (nw=cur+e.cost)<pot[e.v]){
+              pot[e.v]=nw; ch=1;
+            }
+          }
+        }
+      }
+    }
+    assert(ite>=0); // Else negative cycle
+  }
+  bool path(int s,int t){
+    fill(dist.begin(),dist.end(),CINF);
+    dist[s]=0;
+    __gnu_pbds::priority_queue<pair<COST,int> > pq;
+    vector<decltype(pq)::point_iterator> its(N);
+    pq.push({0,s});
+    COST curr,val;
+    int node,cnt;
+    bool ok=0;
+    while(!pq.empty()){
+      tie(curr,node)=pq.top();
+      pq.pop();
+      curr=-curr;
+      if(curr!=dist[node]) continue;
+      curr+=pot[node];
+      if(node==t) ok=1;
+      cnt=0;
+      for(auto &e: v[node]){
+        if(e.cap>e.flow && (val=curr+e.cost-pot[e.v])<dist[e.v]){
+          dist[e.v]=val;
+          par[e.v]=make_pair(node,cnt);
+          if(its[e.v]==pq.end()) its[e.v]=pq.push({-val,e.v});
+              else pq.modify(its[e.v],{-val,e.v});
+        }
+        ++cnt;
+      }
+    }
+    for(int i=0;i<N;++i){
+      pot[i]=min(pot[i]+dist[i],FINF);
+    }
+    return ok;
+  }
+  pair<FLOW,COST> SolveMCMF(int s,int t,FLOW need=FINF,bool neg=0){
+    FLOW tot=0,cflow=0; COST tcost=0;
+    if(s==t) return {tot,tcost};
+    if(!neg) pot.assign(N,0);
+    else setpi(s);
+    int cntr=0;
+    while(path(s,t) && need>0){
+      cflow=need;
+      for(int node=t,u,ind;node!=s;node=u){
+        u=par[node].first;
+        ind=par[node].second;
+        cflow=min(cflow,v[u][ind].cap-v[u][ind].flow);
+      }
+      tot+=cflow; need-=cflow;
+      for(int node=t,u,ind,rind;node!=s;node=u){
+        u=par[node].first;
+        ind=par[node].second;
+        rind=v[u][ind].rind;
+        v[u][ind].flow+=cflow;
+        v[node][rind].flow-=cflow;
+      }
+    }
+    return {tot,tcost};
+  }
+};
+/*
+// Mincost Maxflow : O(E^2)
+//cap[i][j] != cap[j][i] is allowed; double edges are not.
+//If costs can be negative, call setpi before maxflow, but note that negative cost cycles are not supported.
+//To obtain the actual flow, look at positive values only.
+#include <bits/extc++.h> 
+const ll INF = numeric_limits<ll>::max() / 4;
+typedef vector<ll> v64;
+struct MCMF{
+  int N;
+  vv32 ed, red;
+  vv64 cap, flow, cost;
+  v32 seen;
+  v64 dist, pi;
+  vp32 par;
+  MCMF(int N) :
+    N(N), ed(N), red(N), cap(N, v64(N)), flow(cap), cost(cap),
+    seen(N), dist(N), pi(N), par(N) {}
+  void addEdge(int from, int to, ll cap, ll cost) {
+    this->cap[from][to] = cap;
+    this->cost[from][to] = cost;
+    ed[from].push_back(to);
+    red[to].push_back(from);
+  }
+  void path(int s) {
+    fill(all(seen), 0);
+    fill(all(dist), INF);
+    dist[s] = 0; ll di;
+    __gnu_pbds::priority_queue<pair<ll, int>> q;
+    vector<decltype(q)::point_iterator> its(N);
+    q.push({0, s});
+    auto relax = [&](int i, ll cap, ll cost, int dir) {
+      ll val = di - pi[i] + cost;
+      if (cap && val < dist[i]) {
+        dist[i] = val;
+        par[i] = {s, dir};
+        if (its[i] == q.end()) its[i] = q.push({-dist[i], i});
+        else q.modify(its[i], {-dist[i], i});
+      }
+    };
+    while (!q.empty()) {
+      s = q.top().second; q.pop();
+      seen[s] = 1; di = dist[s] + pi[s];
+      forstl(i, ed[s]) if (!seen[i])
+        relax(i, cap[s][i] - flow[s][i], cost[s][i], 1);
+      forstl(i, red[s]) if (!seen[i])
+        relax(i, flow[i][s], -cost[i][s], 0);
+    }
+    forn(i,N) pi[i] = min(pi[i] + dist[i], INF);
+  }
+  pair<ll, ll> maxflow(int s, int t) {
+    ll totflow = 0, totcost = 0;
+    while (path(s), seen[t]) {
+      ll fl = INF;
+      for (int p,r,x = t; tie(p,r) = par[x], x != s; x = p)
+        fl = min(fl, r ? cap[p][x] - flow[p][x] : flow[x][p]);
+      totflow += fl;
+      for (int p,r,x = t; tie(p,r) = par[x], x != s; x = p)
+        if (r) flow[p][x] += fl;
+        else flow[x][p] -= fl;
+    }
+    forn(i,N) forn(j,N) totcost += cost[i][j] * flow[i][j];
+    return {totflow, totcost};
+  }
+  // If some costs can be negative, call this before maxflow:
+  void setpi(int s) { // (otherwise, leave this out)
+    fill(all(pi), INF); pi[s] = 0;
+    int it = N, ch = 1; ll v;
+    while (ch-- && it--)
+      forn(i,N) if (pi[i] != INF)
+        forstl(to, ed[i]) if (cap[i][to])
+          if ((v = pi[i] + cost[i][to]) < pi[to])
+            pi[to] = v, ch = 1;
+    assert(it >= 0); // negative cost cycle
+  }
+};*/
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>mincostmaxflow1</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

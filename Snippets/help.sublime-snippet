@@ -1,0 +1,112 @@
+<snippet>
+    <content><![CDATA[
+Binary Search:
+    Normal:
+        bsearch
+    Parallel:
+        pbsearch
+DP:
+    Divide n conquer:
+        dncdp
+    Convex Hull:
+        dynamichull
+    Maximum Contiguous Sum:
+        kadanemaximumcontsum
+FFT/NTT:
+    NTT:
+        ntt
+    FFT:
+        fft
+Flow/Matchings:
+    Bipartite Maximum Matching:
+        karpmatch
+    Maxflow:
+        pushrebel
+    MincostMaxFlow:
+        mincostmaxflow1 (fast double edges not allowed)
+        mincostmaxflow2
+Gaussian Elimination:
+    Base 2:
+        gaussforbase2
+Geometry:
+    3d:
+        3dgeometry
+        3dreorient
+Graphs Datastructure:
+    DSU:
+        dsu
+Hashing:
+    Coordinates Compression:
+        compress
+    Hashtable for strings:
+        hashtable
+Number Theory:
+    Extended Gcd:
+        extgcd
+    Sieve:
+        sieve
+        linsieve
+    Inverse:
+        inverse
+        inverseforull
+        fastinverseandfac
+    Multiplications of Long long:
+        llmul
+    Lucas:
+        lucas
+    Prime:
+        rabinmiller
+Policy Based:
+    Set:
+        policybasedsets
+
+Query:
+    Range query no update:
+        rmqsparse
+    Range query point update:
+        fenwick
+        fenwickminimum
+        maximumsegtree
+    Range query range update:
+        lazysegtree
+    Fenwick Tree:
+        fenwick
+        fenwick2d
+        fenwickminimum
+    Segment Tree:
+        basicsegtree
+        maximumsegtree
+        lazysegtree
+        mergesorttree
+    Sparse Table:
+        rmqsparse
+    Number of distinct values in range static:
+        distinctsubarray
+StockSpan:
+    stockspan
+Strings:
+    KMP:
+        kmp
+    Z:
+        zfunction
+Template:
+    Codechef: 
+        cc
+    Codeforces:
+        cf
+    Simple:
+        simple
+    Testcase:
+        testcasegen
+Tree:
+    Centroid Decomposition:
+        centroiddecom
+    LCA:
+        lca
+
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>help</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

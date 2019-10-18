@@ -1,0 +1,17 @@
+<snippet>
+    <content><![CDATA[
+inline ll mul(ll a,ll b,ll Mod=MOD){
+  ll res=0;
+  while(b){
+    if(b&1LL) res=(res+a)%Mod; 
+    b>>=1;
+    a=(a+a)%Mod;
+  }
+  return res;
+}
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>llmul</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

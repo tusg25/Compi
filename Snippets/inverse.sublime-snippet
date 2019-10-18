@@ -1,0 +1,24 @@
+<snippet>
+    <content><![CDATA[
+// Include llmul if MOD*MOD overflow 
+// Consider if ull (inverseull) required
+inline ll powm(ll x,ll pw,ll Mod=MOD){ //return (x^pw)%Mod
+	x%=Mod;
+	ll res=1;
+	while(pw){
+		if(pw&1LL) res=((res*x))%Mod;
+		pw>>=1;
+		x=((x*x))%Mod;
+	}
+	return res;
+}
+// Use gcd if not prime
+inline ll inv(ll x,ll Mod=MOD){
+	return powm(x,Mod-2,Mod); 
+}
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>inverse</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

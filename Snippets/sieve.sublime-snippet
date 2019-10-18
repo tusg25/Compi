@@ -1,0 +1,21 @@
+<snippet>
+    <content><![CDATA[
+int is_com[LIM];
+v32 pr;
+void sieve(){
+    is_com[1]=1;
+    forsn(i,2,LIM){
+        if(!is_com[i]){
+            pr.pb(i);
+            for(int j=i+i;j<LIM;j+=i){
+                is_com[j]=1;
+            }
+        }
+    }
+}
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>sieve</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

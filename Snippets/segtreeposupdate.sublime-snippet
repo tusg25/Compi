@@ -1,0 +1,55 @@
+<snippet>
+    <content><![CDATA[
+struct segtree{
+  v32 T;
+  int N;
+  void clear(int n){
+    N=n;
+    T.assign(4*N,0);
+  }
+  void build(int a[],int v,int tl,int tr){
+    if(tl==tr){
+      T[v]=a[tl];
+    }else{
+      int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;;
+      build(a,lf,tl,tm);
+      build(a,rt,tm+1,tr);
+      T[v]=__gcd(T[lf],T[rt]);
+    }
+  }
+  void update(int v,int tl,int tr,int pos,int val){
+    if(tl==tr){
+      T[v]=val;
+    }else{
+      int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;;
+      if(pos<=tm) update(lf,tl,tm,pos,val);
+      else update(rt,tm+1,tr,pos,val);
+      T[v]=__gcd(T[lf],T[rt]);
+    }
+  }
+  int query(int v,int tl,int tr,int l,int r,int x){
+    if(l>r) return 0;
+    if(T[v]%x==0) return 0;
+    int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;
+    if(l<=tl && tr<=r){
+        if(tl==tr) return 1;
+        if(T[lf]%x!=0 && T[rt]%x!=0) return 2;
+        if(T[lf]%x!=0) return query(lf,tl,tm,l,min(r,tm),x);
+        else return query(rt,tm+1,tr,max(l,tm+1),r,x);
+    }
+    return query(lf,tl,tm,l,min(r,tm),x)+
+        query(rt,tm+1,tr,max(l,tm+1),r,x);
+  }
+  bool q(int l,int r,int x){
+    return query(1,0,N-1,l,r,x)<=1;
+  }
+  void u(int l,int val){
+    update(1,0,N-1,l,val);
+  }
+} st;
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>segtreeposupdate</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

@@ -1,0 +1,75 @@
+<snippet>
+    <content><![CDATA[
+struct node{
+	// Data
+	// Default
+	node(): {};
+};
+struct segtree{
+	vector<node> T;
+	vector<int> lazy;
+	int N;
+	void clear(int n){
+		N=n;
+		T.resize(4*N); // Assign lazy to ZERO of lazy
+		lazy.assign(4*N,0);
+	}
+	void merge(const node &a,const node &b,node &c){
+		// Merge
+	}
+	void build(int v,int tl,int tr){
+		if(tl==tr){
+			// Build T[v]
+		}else{
+			int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;;
+			build(lf,tl,tm);
+			build(rt,tm+1,tr);
+			merge(T[lf],T[rt],T[v]); 
+		}
+	}
+	inline void push(int v){
+		int lf=v<<1,rt=lf^1;
+		// T[lf]=T[lf]+lazy[v];
+		// lazy[lf]=lazy[lf]+lazy[v];
+		// T[rt]=T[rt]+lazy[v];
+		// lazy[rt]=lazy[rt]+lazy[v];
+		// lazy[v]=0
+	}
+	void update(int v,int tl,int tr,int l,int r,int val){
+		if(l>r or tl>r or tr<l) return;
+		if(l==tl && tr==r){
+			// T[v]=T[v]+val;
+			// lazy[v]=lazy[v]+val;
+		}else{
+			push(v);
+			int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;;
+			update(lf,tl,tm,l,min(r,tm),val);
+			update(rt,tm+1,tr,max(l,tm+1),r,val);
+			merge(T[lf],T[rt],T[v]);
+		}
+	}
+	node query(int v,int tl,int tr,int l,int r){
+		if(l>r or tl>r or tr<l){
+			return node(); // Return Zero for Data query
+		}if(l<=tl && tr<=r){
+			return T[v];
+		}
+		push(v);
+		int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;
+		node res;
+		merge(query(lf,tl,tm,l,min(r,tm)),query(rt,tm+1,tr,max(l,tm+1),r),res);
+		return res;
+	}
+	int q(int l,int r){
+		return query(1,0,N-1,l,r).ans;
+	}
+	void u(int l,int r,int val){
+		update(1,0,N-1,l,r,val);
+	}
+} st;
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>segtreelazyupdate</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>

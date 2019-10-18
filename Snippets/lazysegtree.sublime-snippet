@@ -1,0 +1,62 @@
+<snippet>
+    <content><![CDATA[
+struct segtree{
+  v32 T,lazy;
+  int N,MX;
+  void clear(int n,int mx){
+    N=n,MX=mx;
+    T.assign(4*N,MX);
+    lazy.assign(4*N,MX);
+  }
+  void build(int a[],int v,int tl,int tr){
+    if(tl==tr){
+      T[v]=a[tl];
+    }else{
+      int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;;
+      build(a,lf,tl,tm);
+      build(a,rt,tm+1,tr);
+      T[v]=min(T[lf],T[rt]);
+    }
+  }
+  void push(int v){
+    int lf=v<<1,rt=lf^1;
+    T[lf]=min(T[lf],lazy[v]);
+    lazy[lf]=min(lazy[lf],lazy[v]);
+    T[rt]=min(T[rt],lazy[v]);
+    lazy[rt]=min(lazy[rt],lazy[v]);
+    lazy[v]=MX;
+  }
+  void update(int v,int tl,int tr,int l,int r,int val){
+    if(l>r) return;
+    if(l==tl && tr==r){
+      T[v]=min(T[v],val);
+      lazy[v]=min(lazy[v],val);
+    }else{
+      push(v);
+      int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;;
+      update(lf,tl,tm,l,min(r,tm),val);
+      update(rt,tm+1,tr,max(l,tm+1),r,val);
+      T[v]=min(T[lf],T[rt]);
+    }
+  }
+  int query(int v,int tl,int tr,int l,int r){
+    if(l>r) return MX;
+    if(l<=tl && tr<=r) return T[v];
+    push(v);
+    int tm=(tl+tr)>>1,lf=v<<1,rt=lf^1;
+    return min(query(lf,tl,tm,l,min(r,tm)), 
+      query(rt,tm+1,tr,max(l,tm+1),r));
+  }
+  int q(int l,int r){
+    return query(1,0,N-1,l,r);
+  }
+  void u(int l,int r,int val){
+    update(1,0,N-1,l,r,val);
+  }
+} st;
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>lazysegtree</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope></scope>
+</snippet>
