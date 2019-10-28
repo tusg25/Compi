@@ -1,0 +1,105 @@
+Following are the important things needed to be included in the team notebook
+Let us make notebook soon and practice the implementations given
+
+
+Data structures
+
+Segment tree with lazy propagation
+Persistent segtree
+Small to large merge (just backinserter line, in case we forget)
+Policy based DS
+Trie
+Suffix Array
+Heavy-light decomposition
+Fenwick tree (incase Segment tree TLEs)
+Treap
+Dynamic Connectivity
+
+
+
+Maths
+
+Finding solution of diophantine eqns 
+Mobius inversion - small amount of theory and common inversion pairs
+linear sieve
+Newton's method for roots
+Miller rabin primality test
+Pollard rho factorization
+Integration by simpson's formula
+struct for matrices and polynomials
+burnside's lemma
+catalan numbers and stirling number common occurences
+Gray codes
+Gaussian elimination code
+
+
+
+Strings
+
+KMP
+Z-algorithm
+some hashtable code with prewritten large modulos to check collision
+Aho-Coharasick
+Manacher algo
+Lyndon factorization (maybe not really needed, read once - simple algo)
+Prefix function via automaton
+
+
+
+Graphs
+
+Bridge tree
+articulation points
+SCC + condensation graph
+Strong orientation (reading is enough)
+Number of (shortest/general) paths upto a fixed length (reading is enough)
+Cycle finding in directed graph
+Euler path
+LCA
+Maximum flow algos
+Flows with demands
+MCMF
+Hungarian problem
+Topological sort
+Centroid decomposition
+HLD
+2-SAT
+Paint edges of a tree (reading is enough)
+
+
+Geometry
+
+Convex hull
+Find eq of line from 2 points
+Intersection pt of lines
+check if two line segments intersect
+Circle-line intersection
+Circle-circle intersection
+counterclockwise (ccw function)
+angle bw two lines or line segments
+common tangent to two circles
+area of a polygon
+nearest pair of points 
+voronoi diagram construction
+
+
+DP
+
+Convex hull dp code
+Types of DP optimizations
+SOS DP short example code (can be skipped if needed)
+
+
+Advanced Algos
+
+FFT
+NTT
+Baby-step Giant-step
+Discrete root (just the reduction to discrete log can be noted)
+
+
+Others
+
+Code template + contest tips
+Longest increasing subsequence
+Big Integer
