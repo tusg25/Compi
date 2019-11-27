@@ -11,6 +11,7 @@ Policy based DS
 Trie
 Suffix Array
 Heavy-light decomposition
+Centroid
 Fenwick tree (incase Segment tree TLEs)
 Treap
 Dynamic Connectivity
