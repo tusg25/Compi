@@ -9,9 +9,6 @@ Persistent segtree
 Small to large merge (just backinserter line, in case we forget)
 Policy based DS
 Trie
-Suffix Array
-Heavy-light decomposition
-Centroid
 Fenwick tree (incase Segment tree TLEs)
 Treap
 Dynamic Connectivity
@@ -44,7 +41,7 @@ Aho-Coharasick
 Manacher algo
 Lyndon factorization (maybe not really needed, read once - simple algo)
 Prefix function via automaton
-
+Suffix Array
 
 
 Graphs
