@@ -5,6 +5,15 @@
 <details>
 <summary>Solution</summary>
 
-1 2 3
+Consider for each of $k$ memory slots its history over the whole process this will be our flow path from source $s$ to sink $t$. For each request make two node $a_i$ (denoting situation before job started) and $b_i$ (denoting situation after job ended).
+Graph: 
+*	```Fresh loading```: $s$ to $a_i$ with cost $c_i$ and flow $1$
+*	```Processing the job```: $a_i$ to $b_i$  with cost $-inf$ and flow $1$
+*	```Replacement```: for each $j>i$:  $b_i$ to $a_j$ with flow $1$ and
+	*  cost $a_j$ if $var(i)!=var(j)$  
+	* otherwise cost $0$  
+*	```Ending```: $b_i$ to $t$ cost $0$ and flow $1$
+
+Min-cost flow on this graph will try to include all processing the job edges so basically a flow of 1 through them meaning they are to be present in one of the $k$ path from $s$ to $t$ so job could be done. The problem is to max-flow on this graph will try to fill all slots of memory which may not be required (and infact sometimes could increasing cost) so we can move on steps of 1 increasing the flow untill the increased cost in postive.
 </details>
 
