@@ -1,6 +1,6 @@
 // Mincost Maxflow : O(E^2) 
 // [Hell-Johnson MinCostMaxFlow using Dijstra with potential & Fibonnaci Heap]
-// Negative cost cycles are not supported.
+// Negative cost cycles (in original graph without rev edges) are not supported.
 #include <bits/extc++.h>
 typedef int COST;
 typedef int FLOW;
@@ -78,26 +78,29 @@ struct MCMF{
     return ok;
   }
   pair<FLOW,COST> SolveMCMF(int s,int t,FLOW need=FINF,bool neg=0){
-    FLOW tot=0,cflow=0; COST tcost=0;
+    FLOW tot=0,cflow=0; COST tcost=0,ccost=0;
     if(s==t) return {tot,tcost};
     if(!neg) pot.assign(N,0);
     else setpi(s);
-    int cntr=0;
+    int cntr=0,maxstep=FINF; // take maxstep = 1 if needed
     while(path(s,t) && need>0){
-      cflow=need;
+      cflow=need; // cflow = min(need,maxstep);
       for(int node=t,u,ind;node!=s;node=u){
         u=par[node].first;
         ind=par[node].second;
         cflow=min(cflow,v[u][ind].cap-v[u][ind].flow);
       }
-      tot+=cflow; need-=cflow;
+      ccost=0;
       for(int node=t,u,ind,rind;node!=s;node=u){
         u=par[node].first;
         ind=par[node].second;
         rind=v[u][ind].rind;
         v[u][ind].flow+=cflow;
+        ccost+=v[u][ind].cost*cflow;
         v[node][rind].flow-=cflow;
       }
+      // could break based on ccost or flow needs
+      tot+=cflow; need-=cflow; tcost += ccost;
     }
     return {tot,tcost};
   }
