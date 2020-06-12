@@ -1,5 +1,5 @@
-// Max matching 
-//1 indexed Hopcroft-Karp Matching in O(E sqrtV)
+// Max matching bipartite graph
+// 1 indexed Hopcroft-Karp Matching in O(E sqrtV)
 struct Hopcroft_Karp{
 	static const int inf = 1e9;
 	int n;
